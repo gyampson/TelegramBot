@@ -74,17 +74,10 @@ async def newexam_cancel(update, context):
     return ConversationHandler.END
 from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram import ReplyKeyboardMarkup
-import datetime, threading, json, os, asyncio
+import datetime, json, os, asyncio
 
 def get_token():
-    token = os.getenv("TOKEN")
-    if not token:
-        try:
-            with open("token.txt", "r") as f:
-                token = f.read().strip()
-        except Exception:
-            token = None
-    return token
+    return os.getenv("TOKEN")
 
 TOKEN = get_token()
 EXAMS_FILE = "exams.json"
@@ -430,7 +423,8 @@ def main():
                 await reminder_task
             except asyncio.CancelledError:
                 pass
-    app = Application.builder().token(TOKEN).post_init(start_reminder).shutdown(stop_reminder).build()
+    app = Application.builder().token(TOKEN).post_init(start_reminder).build()
+    app.shutdown = stop_reminder
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("addexam", add_exam))
     app.add_handler(CommandHandler("myexams", my_exams))
