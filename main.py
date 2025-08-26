@@ -440,9 +440,20 @@ def main():
     )
     app.add_handler(conv_handler)
     app.add_handler(MessageHandler(filters.COMMAND | filters.TEXT, unknown))
-    # Start reminder loop
-    loop = asyncio.get_event_loop()
-    loop.create_task(reminder_loop(app))
+    # Start reminder loop using Application lifecycle hooks
+    reminder_task = None
+    async def start_reminder(app):
+        nonlocal reminder_task
+        reminder_task = asyncio.create_task(reminder_loop(app))
+    async def stop_reminder(app):
+        if reminder_task:
+            reminder_task.cancel()
+            try:
+                await reminder_task
+            except asyncio.CancelledError:
+                pass
+    app.post_init = start_reminder
+    app.shutdown = stop_reminder
     app.run_polling()
 
 if __name__ == "__main__":
