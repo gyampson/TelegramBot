@@ -1,90 +1,32 @@
 [
     {
         "chat_id": 6735665031,
+        "time": "2025-08-29T07:30:00",
+        "message": "312 (Online)"
+    },
+    {
+        "chat_id": 6735665031,
         "time": "2025-08-31T11:30:00",
-        "message": "DCIT 302 Exam \u2013 Online",
-        "sent": [
-            false,
-            false,
-            false,
-            false
-        ]
+        "message": "302 Online"
     },
     {
         "chat_id": 6735665031,
         "time": "2025-09-01T07:30:00",
-        "message": "DCIT 304 Exam \u2013 Online",
-        "sent": [
-            false,
-            false,
-            false,
-            false
-        ]
+        "message": "304 Online"
     },
     {
         "chat_id": 6735665031,
         "time": "2025-09-05T07:30:00",
-        "message": "DCIT 306 Exam \u2013 Online",
-        "sent": [
-            false,
-            false,
-            false,
-            false
-        ]
+        "message": "306 Online"
     },
     {
         "chat_id": 6735665031,
         "time": "2025-09-07T11:30:00",
-        "message": "DCIT 318 Exam \u2013 Online",
-        "sent": [
-            false,
-            false,
-            false,
-            false
-        ]
+        "message": "318 Online"
     },
     {
         "chat_id": 6735665031,
-        "time": "2025-08-25T19:14:00",
-        "message": "Test (Online)",
-        "sent": [
-            true,
-            true,
-            true,
-            true
-        ]
-    },
-    {
-        "chat_id": 6735665031,
-        "time": "2025-08-25T20:17:00",
-        "message": "Test (Online)",
-        "sent": [
-            true,
-            true,
-            true,
-            false
-        ]
-    },
-    {
-        "chat_id": 6735665031,
-        "time": "2025-08-25T19:23:00",
-        "message": "UGRC (Online)",
-        "sent": [
-            true,
-            true,
-            true,
-            true
-        ]
-    },
-    {
-        "chat_id": 6735665031,
-        "time": "2025-08-25T19:59:00",
-        "message": "tes33 (Online)",
-        "sent": [
-            true,
-            true,
-            true,
-            true
-        ]
+        "time": "2025-09-08T11:30:00",
+        "message": "308 Online"
     }
 ]
