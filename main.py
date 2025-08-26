@@ -449,15 +449,7 @@ def main():
     async def start_reminder(app):
         nonlocal reminder_task
         reminder_task = asyncio.create_task(reminder_loop(app))
-    async def stop_reminder(app):
-        if reminder_task:
-            reminder_task.cancel()
-            try:
-                await reminder_task
-            except asyncio.CancelledError:
-                pass
-    app.add_post_init_handler(start_reminder)
-    app.add_shutdown_handler(stop_reminder)
+    app = Application.builder().token(TOKEN).post_init(start_reminder).build()
     app.run_polling()
 
 if __name__ == "__main__":
