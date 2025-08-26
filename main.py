@@ -450,7 +450,13 @@ def main():
         nonlocal reminder_task
         reminder_task = asyncio.create_task(reminder_loop(app))
     app = Application.builder().token(TOKEN).post_init(start_reminder).build()
-    app.run_polling()
+    # Use webhooks for Render deployment
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=int(os.getenv("PORT", "10000")),
+        url_path=TOKEN,
+        webhook_url=f"https://telegrambot-dhnl.onrender.com/{TOKEN}"
+    )
 
 if __name__ == "__main__":
     main()
