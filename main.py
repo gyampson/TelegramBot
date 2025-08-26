@@ -452,8 +452,8 @@ def main():
                 await reminder_task
             except asyncio.CancelledError:
                 pass
-    app.post_init = start_reminder
-    app.shutdown = stop_reminder
+    app.add_post_init_handler(start_reminder)
+    app.add_shutdown_handler(stop_reminder)
     app.run_polling()
 
 if __name__ == "__main__":
