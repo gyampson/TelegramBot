@@ -77,7 +77,14 @@ from telegram import ReplyKeyboardMarkup
 import datetime, json, os, asyncio
 
 def get_token():
-    return os.getenv("TOKEN")
+    token = os.getenv("TOKEN")
+    if not token:
+        try:
+            with open("token.txt", "r") as f:
+                token = f.read().strip()
+        except Exception:
+            token = None
+    return token
 
 TOKEN = get_token()
 EXAMS_FILE = "exams.json"
