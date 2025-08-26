@@ -451,19 +451,18 @@ def main():
     )
     app.add_handler(conv_handler)
     app.add_handler(MessageHandler(filters.COMMAND | filters.TEXT, unknown))
-    # Start reminder loop using Application lifecycle hooks
-    reminder_task = None
-    async def start_reminder(app):
-        nonlocal reminder_task
-        reminder_task = asyncio.create_task(reminder_loop(app))
-    app = Application.builder().token(TOKEN).post_init(start_reminder).build()
-    # Use webhooks for Render deployment
-    app.run_webhook(
-        listen="0.0.0.0",
-        port=int(os.getenv("PORT", "10000")),
-        url_path=TOKEN,
-        webhook_url=f"https://telegrambot-dhnl.onrender.com/{TOKEN}"
-    )
+    # Conditional deployment: webhook for Render, polling for local
+    if os.getenv("RENDER") or os.getenv("PORT"):
+        # Use webhooks for Render deployment
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=int(os.getenv("PORT", "10000")),
+            url_path=TOKEN,
+            webhook_url=f"https://telegrambot-dhnl.onrender.com/{TOKEN}"
+        )
+    else:
+        # Local development: use polling
+        app.run_polling()
 
 if __name__ == "__main__":
     main()
