@@ -419,7 +419,18 @@ async def today(update, context):
 
 # ---------------- Main ----------------
 def main():
-    app = Application.builder().token(TOKEN).build()
+    reminder_task = None
+    async def start_reminder(app):
+        nonlocal reminder_task
+        reminder_task = asyncio.create_task(reminder_loop(app))
+    async def stop_reminder(app):
+        if reminder_task:
+            reminder_task.cancel()
+            try:
+                await reminder_task
+            except asyncio.CancelledError:
+                pass
+    app = Application.builder().token(TOKEN).post_init(start_reminder).shutdown(stop_reminder).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("addexam", add_exam))
     app.add_handler(CommandHandler("myexams", my_exams))
