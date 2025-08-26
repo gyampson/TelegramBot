@@ -424,7 +424,6 @@ def main():
             except asyncio.CancelledError:
                 pass
     app = Application.builder().token(TOKEN).post_init(start_reminder).build()
-    app.shutdown = stop_reminder
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("addexam", add_exam))
     app.add_handler(CommandHandler("myexams", my_exams))
